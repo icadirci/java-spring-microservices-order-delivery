@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: notification-service
+  rabbitmq:
+    listener:
+      simple:
+        retry:
+          enabled: true
+          max-attempts: 3
+          initial-interval: 2000
+          multiplier: 2
+  redis:
+    host: redis
+    port: 6379

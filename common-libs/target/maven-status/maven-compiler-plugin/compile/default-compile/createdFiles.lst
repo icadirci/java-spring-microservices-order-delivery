@@ -1,0 +1,5 @@
+com\orderplatform\common\dto\ApiResponse.class
+com\orderplatform\common\exception\BaseException.class
+com\orderplatform\common\event\UserRegisteredEvent.class
+com\orderplatform\common\exception\ErrorCode.class
+com\orderplatform\common\security\Role.class
