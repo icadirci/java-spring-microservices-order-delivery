@@ -1,0 +1,128 @@
+2026-01-19T22:06:33.201Z  WARN 1 --- [gateway-service] [or-http-epoll-5] reactor.core.Exceptions                  : throwIfFatal detected a jvm fatal exception, which is thrown and logged below:
+
+
+java.lang.NoSuchMethodError: 'java.util.Set org.springframework.http.HttpHeaders.headerSet()'
+
+	at org.springframework.cloud.gateway.filter.headers.ForwardedHeadersFilter.filter(ForwardedHeadersFilter.java:99) ~[spring-cloud-gateway-server-4.1.6.jar!/:4.1.6]
+
+	at org.springframework.cloud.gateway.filter.headers.HttpHeadersFilter.filter(HttpHeadersFilter.java:38) ~[spring-cloud-gateway-server-4.1.6.jar!/:4.1.6]
+
+	at org.springframework.cloud.gateway.filter.headers.HttpHeadersFilter.filterRequest(HttpHeadersFilter.java:28) ~[spring-cloud-gateway-server-4.1.6.jar!/:4.1.6]
+
+	at org.springframework.cloud.gateway.filter.NettyRoutingFilter.filter(NettyRoutingFilter.java:125) ~[spring-cloud-gateway-server-4.1.6.jar!/:4.1.6]
+
+	at org.springframework.cloud.gateway.handler.FilteringWebHandler$GatewayFilterAdapter.filter(FilteringWebHandler.java:147) ~[spring-cloud-gateway-server-4.1.6.jar!/:4.1.6]
+
+	at org.springframework.cloud.gateway.filter.OrderedGatewayFilter.filter(OrderedGatewayFilter.java:44) ~[spring-cloud-gateway-server-4.1.6.jar!/:4.1.6]
+
+	at org.springframework.cloud.gateway.handler.FilteringWebHandler$DefaultGatewayFilterChain.lambda$filter$0(FilteringWebHandler.java:127) ~[spring-cloud-gateway-server-4.1.6.jar!/:4.1.6]
+
+	at reactor.core.publisher.MonoDefer.subscribe(MonoDefer.java:45) ~[reactor-core-3.6.5.jar!/:3.6.5]
+
+	at reactor.core.publisher.MonoDefer.subscribe(MonoDefer.java:53) ~[reactor-core-3.6.5.jar!/:3.6.5]
+
+	at reactor.core.publisher.MonoDefer.subscribe(MonoDefer.java:53) ~[reactor-core-3.6.5.jar!/:3.6.5]
+
+	at reactor.core.publisher.MonoIgnoreThen$ThenIgnoreMain.subscribeNext(MonoIgnoreThen.java:241) ~[reactor-core-3.6.5.jar!/:3.6.5]
+
+	at reactor.core.publisher.MonoIgnoreThen$ThenIgnoreMain.onComplete(MonoIgnoreThen.java:204) ~[reactor-core-3.6.5.jar!/:3.6.5]
+
+	at reactor.core.publisher.FluxPeek$PeekSubscriber.onComplete(FluxPeek.java:260) ~[reactor-core-3.6.5.jar!/:3.6.5]
+
+	at reactor.core.publisher.FluxMap$MapSubscriber.onComplete(FluxMap.java:144) ~[reactor-core-3.6.5.jar!/:3.6.5]
+
+	at reactor.core.publisher.MonoNext$NextSubscriber.onComplete(MonoNext.java:102) ~[reactor-core-3.6.5.jar!/:3.6.5]
+
+	at reactor.core.publisher.MonoNext$NextSubscriber.onNext(MonoNext.java:83) ~[reactor-core-3.6.5.jar!/:3.6.5]
+
+	at reactor.core.publisher.FluxDematerialize$DematerializeSubscriber.onNext(FluxDematerialize.java:98) ~[reactor-core-3.6.5.jar!/:3.6.5]
+
+	at reactor.core.publisher.FluxDematerialize$DematerializeSubscriber.onNext(FluxDematerialize.java:44) ~[reactor-core-3.6.5.jar!/:3.6.5]
+
+	at reactor.core.publisher.FluxFlattenIterable$FlattenIterableSubscriber.drainAsync(FluxFlattenIterable.java:453) ~[reactor-core-3.6.5.jar!/:3.6.5]
+
+	at reactor.core.publisher.FluxFlattenIterable$FlattenIterableSubscriber.drain(FluxFlattenIterable.java:724) ~[reactor-core-3.6.5.jar!/:3.6.5]
+
+	at reactor.core.publisher.FluxFlattenIterable$FlattenIterableSubscriber.onNext(FluxFlattenIterable.java:256) ~[reactor-core-3.6.5.jar!/:3.6.5]
+
+	at reactor.core.publisher.FluxSwitchIfEmpty$SwitchIfEmptySubscriber.onNext(FluxSwitchIfEmpty.java:74) ~[reactor-core-3.6.5.jar!/:3.6.5]
+
+	at reactor.core.publisher.Operators$BaseFluxToMonoOperator.completePossiblyEmpty(Operators.java:2097) ~[reactor-core-3.6.5.jar!/:3.6.5]
+
+	at reactor.core.publisher.MonoCollectList$MonoCollectListSubscriber.onComplete(MonoCollectList.java:118) ~[reactor-core-3.6.5.jar!/:3.6.5]
+
+	at reactor.core.publisher.DrainUtils.postCompleteDrain(DrainUtils.java:132) ~[reactor-core-3.6.5.jar!/:3.6.5]
+
+	at reactor.core.publisher.DrainUtils.postComplete(DrainUtils.java:187) ~[reactor-core-3.6.5.jar!/:3.6.5]
+
+	at reactor.core.publisher.FluxMaterialize$MaterializeSubscriber.onComplete(FluxMaterialize.java:141) ~[reactor-core-3.6.5.jar!/:3.6.5]
+
+	at reactor.core.publisher.Operators$ScalarSubscription.request(Operators.java:2573) ~[reactor-core-3.6.5.jar!/:3.6.5]
+
+	at reactor.core.publisher.FluxMaterialize$MaterializeSubscriber.request(FluxMaterialize.java:148) ~[reactor-core-3.6.5.jar!/:3.6.5]
+
+	at reactor.core.publisher.Operators$BaseFluxToMonoOperator.request(Operators.java:2067) ~[reactor-core-3.6.5.jar!/:3.6.5]
+
+	at reactor.core.publisher.Operators$MultiSubscriptionSubscriber.set(Operators.java:2367) ~[reactor-core-3.6.5.jar!/:3.6.5]
+
+	at reactor.core.publisher.Operators$MultiSubscriptionSubscriber.onSubscribe(Operators.java:2241) ~[reactor-core-3.6.5.jar!/:3.6.5]
+
+	at reactor.core.publisher.Operators$BaseFluxToMonoOperator.onSubscribe(Operators.java:2051) ~[reactor-core-3.6.5.jar!/:3.6.5]
+
+	at reactor.core.publisher.FluxMaterialize$MaterializeSubscriber.onSubscribe(FluxMaterialize.java:103) ~[reactor-core-3.6.5.jar!/:3.6.5]
+
+	at reactor.core.publisher.FluxJust.subscribe(FluxJust.java:68) ~[reactor-core-3.6.5.jar!/:3.6.5]
+
+	at reactor.core.publisher.InternalFluxOperator.subscribe(InternalFluxOperator.java:68) ~[reactor-core-3.6.5.jar!/:3.6.5]
+
+	at reactor.core.publisher.FluxDefer.subscribe(FluxDefer.java:54) ~[reactor-core-3.6.5.jar!/:3.6.5]
+
+	at reactor.core.publisher.Mono.subscribe(Mono.java:4568) ~[reactor-core-3.6.5.jar!/:3.6.5]
+
+	at reactor.core.publisher.MonoIgnoreThen$ThenIgnoreMain.subscribeNext(MonoIgnoreThen.java:265) ~[reactor-core-3.6.5.jar!/:3.6.5]
+
+	at reactor.core.publisher.MonoIgnoreThen.subscribe(MonoIgnoreThen.java:51) ~[reactor-core-3.6.5.jar!/:3.6.5]
+
+	at reactor.core.publisher.InternalMonoOperator.subscribe(InternalMonoOperator.java:76) ~[reactor-core-3.6.5.jar!/:3.6.5]
+
+	at reactor.core.publisher.MonoDefer.subscribe(MonoDefer.java:53) ~[reactor-core-3.6.5.jar!/:3.6.5]
+
+	at reactor.core.publisher.MonoDefer.subscribe(MonoDefer.java:53) ~[reactor-core-3.6.5.jar!/:3.6.5]
+
+	at reactor.core.publisher.InternalMonoOperator.subscribe(InternalMonoOperator.java:76) ~[reactor-core-3.6.5.jar!/:3.6.5]
+
+	at reactor.core.publisher.MonoDefer.subscribe(MonoDefer.java:53) ~[reactor-core-3.6.5.jar!/:3.6.5]
+
+	at reactor.core.publisher.MonoDefer.subscribe(MonoDefer.java:53) ~[reactor-core-3.6.5.jar!/:3.6.5]
+
+	at reactor.core.publisher.Mono.subscribe(Mono.java:4568) ~[reactor-core-3.6.5.jar!/:3.6.5]
+
+	at reactor.core.publisher.MonoIgnoreThen$ThenIgnoreMain.subscribeNext(MonoIgnoreThen.java:265) ~[reactor-core-3.6.5.jar!/:3.6.5]
+
+	at reactor.core.publisher.MonoIgnoreThen.subscribe(MonoIgnoreThen.java:51) ~[reactor-core-3.6.5.jar!/:3.6.5]
+
+	at reactor.core.publisher.InternalMonoOperator.subscribe(InternalMonoOperator.java:76) ~[reactor-core-3.6.5.jar!/:3.6.5]
+
+	at reactor.core.publisher.MonoDefer.subscribe(MonoDefer.java:53) ~[reactor-core-3.6.5.jar!/:3.6.5]
+
+	at reactor.core.publisher.MonoDefer.subscribe(MonoDefer.java:53) ~[reactor-core-3.6.5.jar!/:3.6.5]
+
+	at reactor.core.publisher.InternalMonoOperator.subscribe(InternalMonoOperator.java:76) ~[reactor-core-3.6.5.jar!/:3.6.5]
+
+	at reactor.core.publisher.MonoDefer.subscribe(MonoDefer.java:53) ~[reactor-core-3.6.5.jar!/:3.6.5]
+
+	at reactor.core.publisher.Mono.subscribe(Mono.java:4568) ~[reactor-core-3.6.5.jar!/:3.6.5]
+
+	at reactor.core.publisher.MonoIgnoreThen$ThenIgnoreMain.subscribeNext(MonoIgnoreThen.java:265) ~[reactor-core-3.6.5.jar!/:3.6.5]
+
+	at reactor.core.publisher.MonoIgnoreThen.subscribe(MonoIgnoreThen.java:51) ~[reactor-core-3.6.5.jar!/:3.6.5]
+
+	at reactor.core.publisher.InternalMonoOperator.subscribe(InternalMonoOperator.java:76) ~[reactor-core-3.6.5.jar!/:3.6.5]
+
+	at reactor.core.publisher.MonoFlatMap$FlatMapMain.onNext(MonoFlatMap.java:165) ~[reactor-core-3.6.5.jar!/:3.6.5]
+
+	at reactor.core.publisher.FluxOnErrorResume$ResumeSubscriber.onNext(FluxOnErrorResume.java:79) ~[reactor-core-3.6.5.jar!/:3.6.5]
+
+	at reactor.core.publisher.FluxSwitchIfEmpty$SwitchIfEmptySubscriber.onNext(FluxSwitchIfEmpty.java:74) ~[reactor-core-3.6.5.jar!/:3.6.5]
+
+	at reactor.core.publisher.MonoNext$NextSubscriber.onNext(MonoNext.java:82) ~[reactor-core-3.6.5.jar!/:3.6.5]
