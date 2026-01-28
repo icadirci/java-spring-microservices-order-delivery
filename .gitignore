@@ -1,0 +1,47 @@
+############################################
+# Java / Maven multi-module Spring Boot
+############################################
+
+# Maven build output
+**/target/
+
+# Packaged artifacts (avoid committing compiled binaries)
+*.jar
+*.war
+*.ear
+!.mvn/wrapper/maven-wrapper.jar
+
+# JVM / runtime
+*.log
+*.hprof
+hs_err_pid*
+replay_pid*
+
+
+############################################
+# IDE / Tooling
+############################################
+
+# IntelliJ
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+# VS Code
+.vscode/
+
+
+############################################
+# Env / Local config
+############################################
+
+.env
+.env.*
+!*.example
+
+# Docker (keep compose files tracked; ignore transient)
+**/.docker/
+**/docker-data/
+

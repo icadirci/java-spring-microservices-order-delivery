@@ -11,10 +11,10 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 public class SecurityConfig {
 
-    private final JwtAuthFilter jwtAuthFilter;
+    private final GatewayHeaderAuthFilter gatewayHeaderAuthFilter;
 
-    public SecurityConfig(JwtAuthFilter jwtAuthFilter) {
-        this.jwtAuthFilter = jwtAuthFilter;
+    public SecurityConfig(GatewayHeaderAuthFilter gatewayHeaderAuthFilter) {
+        this.gatewayHeaderAuthFilter = gatewayHeaderAuthFilter;
     }
 
     @Bean
@@ -28,7 +28,8 @@ public class SecurityConfig {
                         .requestMatchers("/actuator/**").permitAll()
                         .anyRequest().authenticated()
                 )
-                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+                // Authenticate based on headers propagated by the gateway
+                .addFilterBefore(gatewayHeaderAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }

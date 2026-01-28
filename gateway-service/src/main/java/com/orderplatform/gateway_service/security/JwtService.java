@@ -1,4 +1,4 @@
-package com.orderplatform.orderservice.security;
+package com.orderplatform.gateway_service.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -15,6 +15,9 @@ public class JwtService {
     private final SecretKey key;
 
     public JwtService(@Value("${app.jwt.secret}") String secret) {
+        if (secret == null || secret.length() < 32) {
+            throw new IllegalArgumentException("APP_JWT_SECRET must be at least 32 chars");
+        }
         this.key = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
     }
 
@@ -26,3 +29,4 @@ public class JwtService {
                 .getPayload();
     }
 }
+

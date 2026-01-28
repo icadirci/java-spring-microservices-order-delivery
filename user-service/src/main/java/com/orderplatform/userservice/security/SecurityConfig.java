@@ -16,17 +16,17 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class SecurityConfig {
 
-    private final JwtAuthFilter jwtAuthFilter;
+    private final GatewayHeaderAuthFilter gatewayHeaderAuthFilter;
     private final CustomAccessDeniedHandler customAccessDeniedHandler;
     private final CustomAuthEntryPoint customAuthEntryPoint;
 
     public SecurityConfig(
-            JwtAuthFilter jwtAuthFilter,
+            GatewayHeaderAuthFilter gatewayHeaderAuthFilter,
             CustomAccessDeniedHandler customAccessDeniedHandler,
             CustomAuthEntryPoint customAuthEntryPoint
 
     ) {
-        this.jwtAuthFilter = jwtAuthFilter;
+        this.gatewayHeaderAuthFilter = gatewayHeaderAuthFilter;
         this.customAccessDeniedHandler = customAccessDeniedHandler;
         this.customAuthEntryPoint = customAuthEntryPoint;
 
@@ -46,7 +46,8 @@ public class SecurityConfig {
                         .authenticationEntryPoint(customAuthEntryPoint)   // 🔴 401
                         .accessDeniedHandler(customAccessDeniedHandler)   // 403
                 )//                )
-                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+                // Authenticate only via headers propagated by the gateway
+                .addFilterBefore(gatewayHeaderAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }

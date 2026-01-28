@@ -117,6 +117,7 @@ services:
       - discovery-service
     environment:
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://discovery-service:8761/eureka
+      APP_JWT_SECRET: super-secret-key-at-least-32-characters-long
     ports:
       - "8080:8080"
     networks:
