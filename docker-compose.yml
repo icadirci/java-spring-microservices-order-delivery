@@ -14,6 +14,7 @@ services:
       - ./docker/postgres/init:/docker-entrypoint-initdb.d
     networks:
       - order-net
+
   discovery-service:
     build: ./discovery-service
     container_name: discovery-service
@@ -21,6 +22,7 @@ services:
       - "8761:8761"
     networks:
       - order-net
+
   rabbitmq:
     image: rabbitmq:3-management
     environment:
@@ -51,15 +53,16 @@ services:
       SPRING_DATASOURCE_PASSWORD: password
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
       APP_JWT_SECRET: super-secret-key-at-least-32-characters-long
-      JAVA_TOOL_OPTIONS: >
-        -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005
+      # Satır kırma hatasını önlemek için tek satıra çektik
+      JAVA_TOOL_OPTIONS: "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005"
       RABBITMQ_DEFAULT_USER: guest
       RABBITMQ_DEFAULT_PASS: guest
       SPRING_RABBITMQ_HOST: rabbitmq
       SPRING_RABBITMQ_PORT: 5672
     ports:
       - "8081:8080"
-      - "5006:5005"   # 🔴 DEBUG PORT
+      - "5006:5005"   # IntelliJ'den bağlanırken kullanacağın User-Service Debug Portu
+      - "9090:9090"   # 🌟 gRPC Portunu Hem Dışarıya Hem Ağ İcine Açtık!
     networks:
       - order-net
 
@@ -77,17 +80,15 @@ services:
       SPRING_DATASOURCE_PASSWORD: password
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
       APP_JWT_SECRET: super-secret-key-at-least-32-characters-long
-
       SPRING_RABBITMQ_HOST: rabbitmq
       SPRING_RABBITMQ_PORT: 5672
-
       SPRING_REDIS_HOST: redis
       SPRING_REDIS_PORT: 6379
-      JAVA_TOOL_OPTIONS: >
-        -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005
+      # Satır kırma hatasını önlemek için tek satıra çektik
+      JAVA_TOOL_OPTIONS: "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005"
     ports:
       - "8082:8080"
-      - "5005:5005"   # 🔴 DEBUG PORT
+      - "5007:5005"   # IntelliJ'den bağlanırken kullanacağın Order-Service Debug Portu
     networks:
       - order-net
 
@@ -111,6 +112,7 @@ services:
       - "8084:8080"
     networks:
       - order-net
+
   gateway-service:
     build: ./gateway-service
     depends_on:
@@ -119,7 +121,7 @@ services:
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://discovery-service:8761/eureka
       APP_JWT_SECRET: super-secret-key-at-least-32-characters-long
     ports:
-      - "8080:8080"
+      - "8580:8080"
     networks:
       - order-net
 
