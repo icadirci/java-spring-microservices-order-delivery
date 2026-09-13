@@ -5,8 +5,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
-public interface OrderRepository extends JpaRepository<Order, Long> {
-    Optional<Order> findByIdAndUserId(Long id, Long userId);
-    List<Order> findAllByUserId(Long userId);
+public interface OrderRepository extends JpaRepository<Order, UUID> {
+    Optional<Order> findByIdAndUserId(UUID id, UUID userId);
+    List<Order> findAllByUserId(UUID userId);
 }

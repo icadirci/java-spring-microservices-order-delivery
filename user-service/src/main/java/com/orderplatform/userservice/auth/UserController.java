@@ -6,7 +6,6 @@ import com.orderplatform.userservice.auth.dto.UserResponse;
 import com.orderplatform.userservice.exception.UserNotFoundException;
 import com.orderplatform.userservice.user.UserRepository;
 import com.orderplatform.userservice.user.entity.User;
-import org.slf4j.LoggerFactory;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,7 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.logging.Logger;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/users")
@@ -46,9 +45,9 @@ public class UserController {
 
 
     @GetMapping("/{id}")
-    public ApiResponse<UserResponse> getById(@PathVariable Long id) {
+    public ApiResponse<UserResponse> getById(@PathVariable UUID id) {
         User user = userRepository.findById(id)
-                .orElseThrow(() -> new UserNotFoundException());
+                .orElseThrow(UserNotFoundException::new);
         return ApiResponse.ok(new UserResponse(
             user.getId(),
                 user.getEmail(),

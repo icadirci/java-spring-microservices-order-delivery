@@ -1,8 +1,10 @@
 package com.orderplatform.common.event;
 
+import java.util.UUID;
+
 public record UserRegisteredEvent(
         String eventId,
-        Long userId,
+        UUID userId,
         String email,
         String fullName
 ) {

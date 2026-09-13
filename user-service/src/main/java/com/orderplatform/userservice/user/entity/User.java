@@ -1,6 +1,7 @@
 package com.orderplatform.userservice.user.entity;
 
 import com.orderplatform.common.security.Role;
+import com.orderplatform.infra.persistence.UuidV7Entity;
 import jakarta.persistence.*;
 import lombok.Setter;
 
@@ -8,11 +9,7 @@ import lombok.Setter;
 @Table(name = "users", indexes = {
         @Index(name = "ix_users_email", columnList = "email", unique = true)
 })
-public class User {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class User extends UuidV7Entity {
 
     @Setter
     @Column(nullable = false, unique = true, length = 190)
@@ -36,8 +33,6 @@ public class User {
     private boolean enabled = true;
 
     // ---- getters/setters ----
-
-    public Long getId() { return id; }
 
     public String getEmail() { return email; }
 

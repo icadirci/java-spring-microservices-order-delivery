@@ -11,6 +11,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("api/orders")
@@ -26,7 +27,7 @@ public class OrderController {
             @RequestBody @Valid CreateOrderRequest request,
             Authentication authentication
     ) {
-        Long userId = Long.valueOf(authentication.getName());
+        UUID userId = UUID.fromString(authentication.getName());
 
         Order order = orderService.create(userId, request.address());
 
@@ -42,10 +43,10 @@ public class OrderController {
 
     @GetMapping("/{id}")
     public ApiResponse<OrderResponse> getOrder(
-            @PathVariable Long id,
+            @PathVariable UUID id,
             Authentication authentication
     ){
-        Long userId = Long.valueOf(authentication.getName());
+        UUID userId = UUID.fromString(authentication.getName());
 
         Order order = orderService.getOrder(id, userId);
         return ApiResponse.ok(
@@ -60,7 +61,7 @@ public class OrderController {
 
     @GetMapping("/all")
     public ApiResponse<List<OrderResponse>> getAllOrders(Authentication authentication){
-        Long userId = Long.valueOf(authentication.getName());
+        UUID userId = UUID.fromString(authentication.getName());
 
         return ApiResponse.ok(orderService.getAllOrders(userId));
     }

@@ -13,9 +13,15 @@
 
 # JVM / runtime
 *.log
+*.log.*
+**/logs/
 *.hprof
 hs_err_pid*
 replay_pid*
+
+# Operating system files
+.DS_Store
+Thumbs.db
 
 
 ############################################

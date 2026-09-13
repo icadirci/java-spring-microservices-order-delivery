@@ -11,6 +11,7 @@ import javax.crypto.SecretKey;
 import java.nio.charset.StandardCharsets;
 import java.time.Instant;
 import java.util.Date;
+import java.util.UUID;
 @Service
 public class JwtService {
     private final SecretKey key;
@@ -27,12 +28,12 @@ public class JwtService {
         this.accessTokenMinutes = accessTokenMinutes;
     }
 
-    public String generateAccessToken(Long userId, String email, Role role) {
+    public String generateAccessToken(UUID userId, String email, Role role) {
         Instant now = Instant.now();
         Instant exp = now.plusSeconds(accessTokenMinutes * 60);
 
         return Jwts.builder()
-                .subject(String.valueOf(userId))
+                .subject(userId.toString())
                 .claim("email", email)
                 .claim("role", role.name())
                 .issuedAt(Date.from(now))

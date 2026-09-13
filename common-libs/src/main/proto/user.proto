@@ -13,11 +13,11 @@ service UserServiceGrpcNav {
 }
 
 message UserRequest {
-    int64 id = 1;
+    string id = 1;
 }
 
 message UserResponse {
-    int64 id = 1;
+    string id = 1;
     bool enabled = 2;
     string username = 3;
     string email = 4;

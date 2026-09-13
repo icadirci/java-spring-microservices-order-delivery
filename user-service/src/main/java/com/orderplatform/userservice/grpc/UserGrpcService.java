@@ -9,6 +9,8 @@ import io.grpc.stub.StreamObserver;
 import lombok.RequiredArgsConstructor;
 import net.devh.boot.grpc.server.service.GrpcService;
 
+import java.util.UUID;
+
 @GrpcService
 @RequiredArgsConstructor
 public class UserGrpcService extends UserServiceGrpcNavImplBase {
@@ -17,12 +19,12 @@ public class UserGrpcService extends UserServiceGrpcNavImplBase {
 
     @Override
     public void getUserById(UserRequest request, StreamObserver<UserResponse> responseObserver){
-        long userId = request.getId();
+        UUID userId = UUID.fromString(request.getId());
 
         userRepository.findById(userId).ifPresentOrElse(user -> {
             UserResponse response = UserResponse.newBuilder()
                     .setEmail(user.getEmail())
-                    .setId(user.getId())
+                    .setId(user.getId().toString())
                     .setUsername(user.getFullName())
                     .setEnabled(user.isEnabled())
                     .build();

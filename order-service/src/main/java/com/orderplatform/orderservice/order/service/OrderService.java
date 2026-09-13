@@ -16,6 +16,7 @@ import net.devh.boot.grpc.client.inject.GrpcClient;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Slf4j
 @Service
@@ -28,10 +29,10 @@ public class OrderService {
 
 
 
-    public Order create(Long userId, String address) {
+    public Order create(UUID userId, String address) {
         log.info("Creating order for userId={}", userId);
         UserRequest gRpcRequest = UserRequest.newBuilder()
-                .setId(userId)
+                .setId(userId.toString())
                 .build();
 
         UserResponse userResponse = userGrpcStub.getUserById(gRpcRequest);
@@ -47,13 +48,13 @@ public class OrderService {
         return orderRepository.save(order);
     }
 
-    public Order getOrder(Long orderId, Long userId) {
+    public Order getOrder(UUID orderId, UUID userId) {
         return orderRepository
                 .findByIdAndUserId(orderId, userId)
                 .orElseThrow(OrderNotFoundException::new);
     }
 
-    public List<OrderResponse> getAllOrders(Long userId){
+    public List<OrderResponse> getAllOrders(UUID userId){
         List<Order> orders = orderRepository.findAllByUserId(userId);
         return orders.stream()
                 .map(OrderResponse::from)

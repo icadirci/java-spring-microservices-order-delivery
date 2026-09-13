@@ -2,9 +2,11 @@ package com.orderplatform.orderservice.order.dto;
 
 import com.orderplatform.orderservice.order.entity.Order;
 
+import java.util.UUID;
+
 public record OrderResponse(
-        Long id,
-        Long userId,
+        UUID id,
+        UUID userId,
         String address,
         String orderStatus
 ) {

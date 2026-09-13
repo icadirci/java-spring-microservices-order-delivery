@@ -1,7 +1,9 @@
 package com.orderplatform.userservice.auth.dto;
 
+import java.util.UUID;
+
 public record UserResponse(
-        Long id,
+        UUID id,
         String email,
         String fullName,
         boolean enabled
