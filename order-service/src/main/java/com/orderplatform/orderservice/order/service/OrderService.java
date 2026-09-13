@@ -4,17 +4,18 @@ import com.orderplatform.common.dto.ApiResponse;
 import com.orderplatform.common.grpc.UserRequest;
 import com.orderplatform.common.grpc.UserResponse;
 import com.orderplatform.common.grpc.UserServiceGrpcNavGrpc;
-import com.orderplatform.orderservice.client.UserClient;
+import com.orderplatform.orderservice.order.dto.OrderResponse;
+import com.orderplatform.orderservice.order.dto.OrdersResponse;
 import com.orderplatform.orderservice.order.entity.Order;
 import com.orderplatform.orderservice.order.exception.OrderNotFoundException;
 import com.orderplatform.orderservice.order.exception.OrderUserDisabledException;
-import com.orderplatform.orderservice.order.exception.OrderUserNotFoundException;
 import com.orderplatform.orderservice.order.repository.OrderRepository;
-import feign.FeignException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.devh.boot.grpc.client.inject.GrpcClient;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Slf4j
 @Service
@@ -50,6 +51,13 @@ public class OrderService {
         return orderRepository
                 .findByIdAndUserId(orderId, userId)
                 .orElseThrow(OrderNotFoundException::new);
+    }
+
+    public List<OrderResponse> getAllOrders(Long userId){
+        List<Order> orders = orderRepository.findAllByUserId(userId);
+        return orders.stream()
+                .map(OrderResponse::from)
+                .toList();
     }
 
 

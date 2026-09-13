@@ -4,7 +4,7 @@ import com.orderplatform.common.grpc.UserRequest;
 import com.orderplatform.common.grpc.UserResponse;
 import com.orderplatform.common.grpc.UserServiceGrpcNavGrpc.UserServiceGrpcNavImplBase;
 import com.orderplatform.userservice.user.UserRepository;
-import com.orderplatform.userservice.user.entity.User;
+import io.grpc.Status;
 import io.grpc.stub.StreamObserver;
 import lombok.RequiredArgsConstructor;
 import net.devh.boot.grpc.server.service.GrpcService;
@@ -19,18 +19,20 @@ public class UserGrpcService extends UserServiceGrpcNavImplBase {
     public void getUserById(UserRequest request, StreamObserver<UserResponse> responseObserver){
         long userId = request.getId();
 
-        User user = userRepository.getReferenceById(userId);
-
-        if (user.isEnabled()){
+        userRepository.findById(userId).ifPresentOrElse(user -> {
             UserResponse response = UserResponse.newBuilder()
                     .setEmail(user.getEmail())
-                    .setId(userId)
+                    .setId(user.getId())
                     .setUsername(user.getFullName())
-                    .setEnabled(true)
+                    .setEnabled(user.isEnabled())
                     .build();
 
             responseObserver.onNext(response);
-        }
-        responseObserver.onCompleted();
+            responseObserver.onCompleted();
+        }, () -> responseObserver.onError(
+                Status.NOT_FOUND
+                        .withDescription("User not found: " + userId)
+                        .asRuntimeException()
+        ));
     }
 }

@@ -3,12 +3,14 @@ package com.orderplatform.orderservice.order.controller;
 import com.orderplatform.common.dto.ApiResponse;
 import com.orderplatform.orderservice.order.dto.CreateOrderRequest;
 import com.orderplatform.orderservice.order.dto.CreateOrderResponse;
-import com.orderplatform.orderservice.order.dto.GetOrderResponse;
+import com.orderplatform.orderservice.order.dto.OrderResponse;
 import com.orderplatform.orderservice.order.entity.Order;
 import com.orderplatform.orderservice.order.service.OrderService;
 import jakarta.validation.Valid;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("api/orders")
@@ -39,7 +41,7 @@ public class OrderController {
     }
 
     @GetMapping("/{id}")
-    public ApiResponse<GetOrderResponse> getOrder(
+    public ApiResponse<OrderResponse> getOrder(
             @PathVariable Long id,
             Authentication authentication
     ){
@@ -47,7 +49,7 @@ public class OrderController {
 
         Order order = orderService.getOrder(id, userId);
         return ApiResponse.ok(
-                new GetOrderResponse(
+                new OrderResponse(
                         order.getId(),
                         order.getUserId(),
                         order.getAddress(),
@@ -55,4 +57,12 @@ public class OrderController {
                 )
         );
     }
+
+    @GetMapping("/all")
+    public ApiResponse<List<OrderResponse>> getAllOrders(Authentication authentication){
+        Long userId = Long.valueOf(authentication.getName());
+
+        return ApiResponse.ok(orderService.getAllOrders(userId));
+    }
+
 }
