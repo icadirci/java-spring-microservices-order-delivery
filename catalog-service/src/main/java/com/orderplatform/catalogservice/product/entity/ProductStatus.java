@@ -1,4 +1,4 @@
-package com.orderplatform.orderservice.order.entity;
+package com.orderplatform.catalogservice.product.entity;
 
 public enum ProductStatus {
     DRAFT,

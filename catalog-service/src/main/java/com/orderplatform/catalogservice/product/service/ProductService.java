@@ -1,9 +1,9 @@
-package com.orderplatform.orderservice.order.service;
+package com.orderplatform.catalogservice.product.service;
 
-import com.orderplatform.orderservice.order.dto.product.CreateProductRequest;
-import com.orderplatform.orderservice.order.dto.product.ProductResponse;
-import com.orderplatform.orderservice.order.entity.Product;
-import com.orderplatform.orderservice.order.repository.ProductRepository;
+import com.orderplatform.catalogservice.product.dto.CreateProductRequest;
+import com.orderplatform.catalogservice.product.dto.ProductResponse;
+import com.orderplatform.catalogservice.product.entity.Product;
+import com.orderplatform.catalogservice.product.repository.ProductRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 

@@ -1,4 +1,4 @@
-package com.orderplatform.orderservice.order.entity;
+package com.orderplatform.catalogservice.product.entity;
 
 import com.orderplatform.infra.persistence.UuidV7Entity;
 import jakarta.persistence.*;

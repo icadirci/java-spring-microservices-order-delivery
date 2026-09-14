@@ -1,6 +1,6 @@
-package com.orderplatform.orderservice.order.dto.product;
+package com.orderplatform.catalogservice.product.dto;
 
-import com.orderplatform.orderservice.order.entity.ProductStatus;
+import com.orderplatform.catalogservice.product.entity.ProductStatus;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

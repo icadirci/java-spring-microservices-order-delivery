@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: catalog-service
+app:
+  jwt:
+    secret: ${APP_JWT_SECRET}
+logging:
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%X{traceId}] %-5level %logger{36} - %msg%n"
+  file:
+    name: logs/catalog-service.log
+  logback:
+    rollingpolicy:
+      max-file-size: 10MB
+      max-history: 7
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_CLIENT_SERVICEURL_DEFAULTZONE:http://localhost:8761/eureka}
+
+grpc:
+  client:
+    userGrpcClient:
+      address: 'static://user-service:9090'
+      negotiationType: PLAINTEXT

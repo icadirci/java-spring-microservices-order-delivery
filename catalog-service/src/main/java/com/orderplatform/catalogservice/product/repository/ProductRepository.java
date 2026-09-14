@@ -1,6 +1,6 @@
-package com.orderplatform.orderservice.order.repository;
+package com.orderplatform.catalogservice.product.repository;
 
-import com.orderplatform.orderservice.order.entity.Product;
+import com.orderplatform.catalogservice.product.entity.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

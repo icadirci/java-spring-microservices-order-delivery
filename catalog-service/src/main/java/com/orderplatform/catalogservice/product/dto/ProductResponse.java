@@ -1,6 +1,6 @@
-package com.orderplatform.orderservice.order.dto.product;
+package com.orderplatform.catalogservice.product.dto;
 
-import com.orderplatform.orderservice.order.entity.Product;
+import com.orderplatform.catalogservice.product.entity.Product;
 
 import java.math.BigDecimal;
 import java.util.UUID;

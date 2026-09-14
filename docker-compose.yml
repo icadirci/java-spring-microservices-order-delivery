@@ -101,7 +101,7 @@ services:
     environment:
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://discovery-service:8761/eureka
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/catalog_db
-      SPRING_DATASOURCE_USER: user
+      SPRING_DATASOURCE_USERNAME: user
       SPRING_DATASOURCE_PASSWORD: password
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
       APP_JWT_SECRET: super-secret-key-at-least-32-characters-long

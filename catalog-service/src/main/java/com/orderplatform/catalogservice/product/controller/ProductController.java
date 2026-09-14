@@ -1,10 +1,10 @@
-package com.orderplatform.orderservice.order.controller;
+package com.orderplatform.catalogservice.product.controller;
 
 import com.orderplatform.common.dto.ApiResponse;
-import com.orderplatform.orderservice.order.dto.product.CreateProductRequest;
-import com.orderplatform.orderservice.order.dto.product.ProductResponse;
-import com.orderplatform.orderservice.order.entity.Product;
-import com.orderplatform.orderservice.order.service.ProductService;
+import com.orderplatform.catalogservice.product.dto.CreateProductRequest;
+import com.orderplatform.catalogservice.product.dto.ProductResponse;
+import com.orderplatform.catalogservice.product.entity.Product;
+import com.orderplatform.catalogservice.product.service.ProductService;
 import jakarta.validation.Valid;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
