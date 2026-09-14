@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.PositiveOrZero;
+import lombok.Data;
+import lombok.Getter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -16,13 +18,13 @@ import java.util.UUID;
 @Entity
 @Table(name = "products")
 @EntityListeners(AuditingEntityListener.class)
+@Getter
 public class Product extends UuidV7Entity {
 
     protected Product() {
     }
 
-    public Product(String title, String image, BigDecimal price,
-                   ProductStatus status, UUID authorId) {
+    public Product(String title, String image, BigDecimal price, ProductStatus status, UUID authorId) {
         this.title = title;
         this.image = image;
         this.price = price;

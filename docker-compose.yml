@@ -37,7 +37,7 @@ services:
   redis:
     image: redis:7
     ports:
-      - "6379:6379"
+      - "6385:6379"
     networks:
       - order-net
 
@@ -60,7 +60,7 @@ services:
       SPRING_RABBITMQ_HOST: rabbitmq
       SPRING_RABBITMQ_PORT: 5672
     ports:
-      - "8081:8080"
+      - "8083:8080"
       - "5006:5005"   # IntelliJ'den bağlanırken kullanacağın User-Service Debug Portu
       - "9090:9090"   # 🌟 gRPC Portunu Hem Dışarıya Hem Ağ İcine Açtık!
     networks:

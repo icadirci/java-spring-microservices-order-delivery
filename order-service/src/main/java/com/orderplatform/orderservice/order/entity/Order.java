@@ -48,7 +48,7 @@ public class Order extends UuidV7Entity {
         return status;
     }
 
-    public LocalDateTime getCreatedAt() {
+    public Instant getCreatedAt() {
         return createdAt;
     }
 
