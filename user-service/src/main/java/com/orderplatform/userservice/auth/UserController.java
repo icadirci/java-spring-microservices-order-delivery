@@ -8,10 +8,8 @@ import com.orderplatform.userservice.user.UserRepository;
 import com.orderplatform.userservice.user.entity.User;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
@@ -37,12 +35,6 @@ public class UserController {
         ));
     }
 
-    @PreAuthorize("hasRole(T(com.orderplatform.common.security.Role).ADMIN.name())")
-    @GetMapping("/dashboard")
-    public String dashboard() {
-        return "Admin dashboard";
-    }
-
 
     @GetMapping("/{id}")
     public ApiResponse<UserResponse> getById(@PathVariable UUID id) {
@@ -54,6 +46,33 @@ public class UserController {
                 user.getFullName(),
                 user.isEnabled()
         ));
+    }
+
+    // TODO: Implement profile update.
+    @PutMapping("/me")
+    @ResponseStatus(HttpStatus.NOT_IMPLEMENTED)
+    public void updateMe() {
+    }
+
+    // TODO: Implement address management.
+    @PostMapping("/me/addresses")
+    @ResponseStatus(HttpStatus.NOT_IMPLEMENTED)
+    public void createAddress() {
+    }
+
+    @GetMapping("/me/addresses")
+    @ResponseStatus(HttpStatus.NOT_IMPLEMENTED)
+    public void getMyAddresses() {
+    }
+
+    @PutMapping("/me/addresses/{addressId}")
+    @ResponseStatus(HttpStatus.NOT_IMPLEMENTED)
+    public void updateAddress(@PathVariable UUID addressId) {
+    }
+
+    @DeleteMapping("/me/addresses/{addressId}")
+    @ResponseStatus(HttpStatus.NOT_IMPLEMENTED)
+    public void deleteAddress(@PathVariable UUID addressId) {
     }
 
 }

@@ -30,6 +30,10 @@ spring:
           uri: lb://catalog-service
           predicates:
             - Path=/api/products/**
+        - id: catalog-category-service
+          uri: lb://catalog-service
+          predicates:
+            - Path=/api/categories/**
 
         - id: notification-service
           uri: lb://notification-service

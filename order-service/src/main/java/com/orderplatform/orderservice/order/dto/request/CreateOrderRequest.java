@@ -1,4 +1,4 @@
-package com.orderplatform.orderservice.order.dto;
+package com.orderplatform.orderservice.order.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
 

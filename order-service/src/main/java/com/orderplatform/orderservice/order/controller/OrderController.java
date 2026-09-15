@@ -1,12 +1,16 @@
 package com.orderplatform.orderservice.order.controller;
 
 import com.orderplatform.common.dto.ApiResponse;
-import com.orderplatform.orderservice.order.dto.CreateOrderRequest;
-import com.orderplatform.orderservice.order.dto.CreateOrderResponse;
-import com.orderplatform.orderservice.order.dto.OrderResponse;
+import com.orderplatform.orderservice.order.dto.request.CreateOrderRequest;
+import com.orderplatform.orderservice.order.dto.request.UpdateOrderStatusRequest;
+import com.orderplatform.orderservice.order.dto.response.CreateOrderResponse;
+import com.orderplatform.orderservice.order.dto.response.OrderResponse;
 import com.orderplatform.orderservice.order.entity.Order;
+import com.orderplatform.orderservice.order.entity.OrderStatus;
 import com.orderplatform.orderservice.order.service.OrderService;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,7 +26,7 @@ public class OrderController {
         this.orderService = orderService;
     }
 
-    @PostMapping("/create")
+    @PostMapping
     public ApiResponse<CreateOrderResponse> create(
             @RequestBody @Valid CreateOrderRequest request,
             Authentication authentication
@@ -59,11 +63,17 @@ public class OrderController {
         );
     }
 
-    @GetMapping("/all")
-    public ApiResponse<List<OrderResponse>> getAllOrders(Authentication authentication){
-        UUID userId = UUID.fromString(authentication.getName());
 
-        return ApiResponse.ok(orderService.getAllOrders(userId));
+    @GetMapping
+    public ApiResponse<List<OrderResponse>> getMyOrders(Authentication authentication) {
+        UUID userId = UUID.fromString(authentication.getName());
+        return ApiResponse.ok(orderService.getMyOrders(userId));
+    }
+
+    @PatchMapping("/{orderId}/status")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ApiResponse<OrderStatus> updateStatus(@PathVariable UUID orderId, @RequestBody @Valid UpdateOrderStatusRequest request) {
+        return ApiResponse.ok(orderService.updateStatus(orderId, request.status()));
     }
 
 }

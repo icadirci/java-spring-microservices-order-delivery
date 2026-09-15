@@ -2,6 +2,8 @@ package com.orderplatform.orderservice.order.entity;
 
 import com.orderplatform.infra.persistence.UuidV7Entity;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 
 import java.time.Instant;
@@ -9,6 +11,8 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
+@Setter
+@Getter
 @Table(name = "orders")
 public class Order extends UuidV7Entity {
     // JWT’den gelen userId
@@ -36,28 +40,5 @@ public class Order extends UuidV7Entity {
         this.status = OrderStatus.CREATED;
     }
 
-    public UUID getUserId() {
-        return userId;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public OrderStatus getStatus() {
-        return status;
-    }
-
-    public Instant getCreatedAt() {
-        return createdAt;
-    }
-
-    public void markAsPaid() {
-        this.status = OrderStatus.PAID;
-    }
-
-    public void markAsShipped() {
-        this.status = OrderStatus.SHIPPED;
-    }
 
 }

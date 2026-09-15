@@ -1,12 +1,11 @@
 package com.orderplatform.orderservice.order.service;
 
-import com.orderplatform.common.dto.ApiResponse;
 import com.orderplatform.common.grpc.UserRequest;
 import com.orderplatform.common.grpc.UserResponse;
 import com.orderplatform.common.grpc.UserServiceGrpcNavGrpc;
-import com.orderplatform.orderservice.order.dto.OrderResponse;
-import com.orderplatform.orderservice.order.dto.OrdersResponse;
+import com.orderplatform.orderservice.order.dto.response.OrderResponse;
 import com.orderplatform.orderservice.order.entity.Order;
+import com.orderplatform.orderservice.order.entity.OrderStatus;
 import com.orderplatform.orderservice.order.exception.OrderNotFoundException;
 import com.orderplatform.orderservice.order.exception.OrderUserDisabledException;
 import com.orderplatform.orderservice.order.repository.OrderRepository;
@@ -45,7 +44,7 @@ public class OrderService {
 
         log.info("Order created successfully. orderId={}, userId={}",
                 savedOrder.getId(), userId);
-        return orderRepository.save(order);
+        return savedOrder;
     }
 
     public Order getOrder(UUID orderId, UUID userId) {
@@ -54,11 +53,20 @@ public class OrderService {
                 .orElseThrow(OrderNotFoundException::new);
     }
 
-    public List<OrderResponse> getAllOrders(UUID userId){
+    public List<OrderResponse> getMyOrders(UUID userId){
         List<Order> orders = orderRepository.findAllByUserId(userId);
         return orders.stream()
                 .map(OrderResponse::from)
                 .toList();
+    }
+
+    public OrderStatus updateStatus(UUID orderId, OrderStatus status){
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(OrderNotFoundException::new);
+        order.setStatus(status);
+        Order savedOrder = orderRepository.save(order);
+        return status;
+
     }
 
 

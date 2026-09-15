@@ -1,7 +1,7 @@
 package com.orderplatform.orderservice.integration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.orderplatform.orderservice.order.dto.CreateOrderRequest;
+import com.orderplatform.orderservice.order.dto.request.CreateOrderRequest;
 import com.orderplatform.orderservice.order.repository.OrderRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

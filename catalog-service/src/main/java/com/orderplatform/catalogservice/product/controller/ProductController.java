@@ -6,6 +6,7 @@ import com.orderplatform.catalogservice.product.dto.ProductResponse;
 import com.orderplatform.catalogservice.product.entity.Product;
 import com.orderplatform.catalogservice.product.service.ProductService;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,4 +36,36 @@ public class ProductController {
 
         return ApiResponse.ok(productResponse);
     }
+
+    // TODO: Implement product management and query endpoints.
+    @GetMapping("/{productId}")
+    @ResponseStatus(HttpStatus.NOT_IMPLEMENTED)
+    public void getById(@PathVariable UUID productId) {
+    }
+
+    @PutMapping("/{productId}")
+    @ResponseStatus(HttpStatus.NOT_IMPLEMENTED)
+    public void update(@PathVariable UUID productId) {
+    }
+
+    @PatchMapping("/{productId}/status")
+    @ResponseStatus(HttpStatus.NOT_IMPLEMENTED)
+    public void updateStatus(@PathVariable UUID productId) {
+    }
+
+    @PatchMapping("/{productId}/price")
+    @ResponseStatus(HttpStatus.NOT_IMPLEMENTED)
+    public void updatePrice(@PathVariable UUID productId) {
+    }
+
+    @PatchMapping("/{productId}/stock")
+    @ResponseStatus(HttpStatus.NOT_IMPLEMENTED)
+    public void updateStock(@PathVariable UUID productId) {
+    }
+
+    @DeleteMapping("/{productId}")
+    @ResponseStatus(HttpStatus.NOT_IMPLEMENTED)
+    public void delete(@PathVariable UUID productId) {
+    }
+
 }
