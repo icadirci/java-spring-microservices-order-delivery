@@ -1,4 +1,4 @@
-package com.orderplatform.orderservice.security;
+package com.orderplatform.catalogservice.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,7 +11,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableMethodSecurity
 public class SecurityConfig {
-
     private final GatewayHeaderAuthFilter gatewayHeaderAuthFilter;
 
     public SecurityConfig(GatewayHeaderAuthFilter gatewayHeaderAuthFilter) {
@@ -34,5 +33,4 @@ public class SecurityConfig {
 
         return http.build();
     }
-
 }

@@ -1,22 +1,22 @@
-package com.orderplatform.orderservice.security;
+package com.orderplatform.catalogservice.security;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.lang.NonNull;
+import lombok.NonNull;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
-import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 import java.util.List;
 
-@Component
+@Configuration
 public class GatewayHeaderAuthFilter extends OncePerRequestFilter {
 
     @Override
@@ -30,16 +30,12 @@ public class GatewayHeaderAuthFilter extends OncePerRequestFilter {
             List<GrantedAuthority> authorities = (role != null && !role.isBlank())
                     ? List.of(new SimpleGrantedAuthority("ROLE_" + role))
                     : List.of();
-            var auth = new UsernamePasswordAuthenticationToken(
-                    userId,
-                    "N/A",
-                    authorities
-            );
+            var auth = new UsernamePasswordAuthenticationToken(userId, "N/A", authorities);
             auth.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
             SecurityContextHolder.getContext().setAuthentication(auth);
         }
 
         filterChain.doFilter(request, response);
+
     }
 }
-
