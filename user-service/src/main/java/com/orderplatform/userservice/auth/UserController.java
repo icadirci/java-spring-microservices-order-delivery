@@ -3,12 +3,13 @@ package com.orderplatform.userservice.auth;
 import com.orderplatform.common.dto.ApiResponse;
 import com.orderplatform.userservice.auth.dto.UserMeResponse;
 import com.orderplatform.userservice.auth.dto.UserResponse;
+import com.orderplatform.userservice.auth.dto.UpdateProfileRequest;
 import com.orderplatform.userservice.exception.UserNotFoundException;
 import com.orderplatform.userservice.user.UserRepository;
 import com.orderplatform.userservice.user.entity.User;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -48,10 +49,22 @@ public class UserController {
         ));
     }
 
-    // TODO: Implement profile update.
     @PutMapping("/me")
-    @ResponseStatus(HttpStatus.NOT_IMPLEMENTED)
-    public void updateMe() {
+    public ApiResponse<UserMeResponse> updateMe(
+            @RequestBody @Valid UpdateProfileRequest request,
+            Authentication authentication
+    ) {
+        User user = userRepository.findByEmail(authentication.getName())
+                .orElseThrow(UserNotFoundException::new);
+
+        user.setFullName(request.fullName().trim());
+        User updatedUser = userRepository.save(user);
+
+        return ApiResponse.ok(new UserMeResponse(
+                updatedUser.getId(),
+                updatedUser.getEmail(),
+                updatedUser.getFullName()
+        ));
     }
 
     // TODO: Implement address management.

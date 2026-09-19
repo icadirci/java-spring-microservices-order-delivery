@@ -1,11 +1,11 @@
 package com.orderplatform.catalogservice.product.entity;
 
+import com.orderplatform.catalogservice.category.entity.Category;
 import com.orderplatform.infra.persistence.UuidV7Entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.PositiveOrZero;
-import lombok.Data;
 import lombok.Getter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -24,12 +24,13 @@ public class Product extends UuidV7Entity {
     protected Product() {
     }
 
-    public Product(String title, String image, BigDecimal price, ProductStatus status, UUID authorId) {
+    public Product(String title, String image, BigDecimal price, ProductStatus status, UUID authorId, Category category) {
         this.title = title;
         this.image = image;
         this.price = price;
         this.status = status;
         this.authorId = authorId;
+        this.category = category;
     }
 
     @Column(nullable = false)
@@ -53,6 +54,13 @@ public class Product extends UuidV7Entity {
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private ProductStatus status = ProductStatus.DRAFT;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(
+            name = "category_id",
+            foreignKey = @ForeignKey(name = "fk_product_categories")
+    )
+    private Category category;
 
     @CreatedDate
     @Column(name = "created_at", nullable = false, updatable = false)
