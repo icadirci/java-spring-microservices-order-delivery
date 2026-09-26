@@ -132,6 +132,8 @@ services:
       SPRING_DATASOURCE_USERNAME: user
       SPRING_DATASOURCE_PASSWORD: password
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_MAIL_HOST: mailpit
+      SPRING_MAIL_PORT: 1025
     ports:
       - "8084:8080"
     networks:
@@ -148,6 +150,23 @@ services:
       - "8580:8080"
     networks:
       - order-net
+  mailpit:
+    image: axllent/mailpit
+    container_name: mailpit
+    restart: unless-stopped
+    volumes:
+      - ./data:/data
+    ports:
+      - 48025:8025
+      - 41025:1025
+    environment:
+      MP_MAX_MESSAGES: 5000
+      MP_DATABASE: /data/mailpit.db
+      MP_SMTP_AUTH_ACCEPT_ANY: 1
+      MP_SMTP_AUTH_ALLOW_INSECURE: 1
+    networks:
+      - order-net
+
 
 networks:
   order-net:

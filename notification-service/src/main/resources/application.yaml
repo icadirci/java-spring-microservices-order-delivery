@@ -1,6 +1,15 @@
 spring:
   application:
     name: notification-service
+  mail:
+    host: ${SPRING_MAIL_HOST:localhost}
+    port: ${SPRING_MAIL_PORT:41025}
+    properties:
+      "[email.smtp.auth]": false
+      "[email.smtp.starttls.enable]": false
+      "[email.smtp.connectiontimeout]": 5000
+      "[email.smtp.timeout]": 5000
+      "[email.smtp.writetimeout]": 5000
   rabbitmq:
     listener:
       simple:
