@@ -34,6 +34,13 @@
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
 
+        <!-- Shared contracts (AuthHeaders, ApiResponse) -->
+        <dependency>
+            <groupId>com.orderplatform</groupId>
+            <artifactId>common-libs</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
         <!-- Eureka Client -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>

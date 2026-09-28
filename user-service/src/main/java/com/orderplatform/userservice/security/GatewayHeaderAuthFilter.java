@@ -1,5 +1,6 @@
 package com.orderplatform.userservice.security;
 
+import com.orderplatform.common.security.AuthHeaders;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -23,9 +24,9 @@ public class GatewayHeaderAuthFilter extends OncePerRequestFilter {
     protected void doFilterInternal(@NonNull HttpServletRequest request,
                                     @NonNull HttpServletResponse response,
                                     @NonNull FilterChain filterChain) throws ServletException, IOException {
-        String userId = request.getHeader("X-Auth-UserId");
-        String email = request.getHeader("X-Auth-Email");
-        String role = request.getHeader("X-Auth-Role");
+        String userId = request.getHeader(AuthHeaders.USER_ID);
+        String email = request.getHeader(AuthHeaders.EMAIL);
+        String role = request.getHeader(AuthHeaders.ROLE);
 
         if (userId != null && !userId.isBlank()) {
             List<GrantedAuthority> authorities = (role != null && !role.isBlank())
