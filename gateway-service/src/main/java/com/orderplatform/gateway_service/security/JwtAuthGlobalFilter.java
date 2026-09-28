@@ -38,8 +38,7 @@ public class JwtAuthGlobalFilter implements GlobalFilter, Ordered {
     // Deny by default: everything not listed here requires a valid token.
     private static final List<PublicEndpoint> PUBLIC_ENDPOINTS = List.of(
             new PublicEndpoint(HttpMethod.POST, "/api/auth/login"),
-            new PublicEndpoint(HttpMethod.POST, "/api/auth/register"),
-            new PublicEndpoint(HttpMethod.GET, "/actuator/health/**")
+            new PublicEndpoint(HttpMethod.POST, "/api/auth/register")
     );
 
     private final JwtService jwtService;
