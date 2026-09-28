@@ -39,6 +39,14 @@
             <groupId>com.orderplatform</groupId>
             <artifactId>common-libs</artifactId>
             <version>0.0.1-SNAPSHOT</version>
+            <!-- gRPC on the classpath activates Spring Cloud Gateway's gRPC support,
+                 which fails without grpc-netty. The gateway doesn't use gRPC. -->
+            <exclusions>
+                <exclusion>
+                    <groupId>io.grpc</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <!-- Eureka Client -->
