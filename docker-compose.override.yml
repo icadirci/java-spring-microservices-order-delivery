@@ -52,5 +52,5 @@ services:
 
   mailpit:
     ports:
-      - "48025:8025"    # Web UI
-      - "41025:1025"    # SMTP
+      - "6025:8025"    # Web UI
+      - "7025:1025"    # SMTP
