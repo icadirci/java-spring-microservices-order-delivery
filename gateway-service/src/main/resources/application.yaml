@@ -34,6 +34,10 @@ spring:
           uri: lb://catalog-service
           predicates:
             - Path=/api/categories/**
+        - id: payment-service
+          uri: lb://payment-service
+          predicates:
+            - Path=/api/payment/**
 
         - id: notification-service
           uri: lb://notification-service
