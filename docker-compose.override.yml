@@ -1,0 +1,56 @@
+# Local development overrides.
+# `docker compose up` merges this file automatically on top of docker-compose.yml.
+# Production-like run (only the gateway exposed):
+#   docker compose -f docker-compose.yml up
+
+x-debug: &debug-opts
+  JAVA_TOOL_OPTIONS: "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005"
+
+services:
+  postgres:
+    ports:
+      - "5432:5432"
+
+  rabbitmq:
+    ports:
+      - "5672:5672"
+      - "15672:15672"   # Management UI (guest/guest)
+
+  redis:
+    ports:
+      - "6385:6379"
+
+  discovery-service:
+    ports:
+      - "8761:8761"     # Eureka dashboard
+
+  user-service:
+    environment:
+      <<: *debug-opts
+    ports:
+      - "8083:8080"
+      - "5006:5005"     # Remote debug
+      - "9090:9090"     # gRPC (for grpcurl etc.)
+
+  order-service:
+    environment:
+      <<: *debug-opts
+    ports:
+      - "8082:8080"
+      - "5007:5005"     # Remote debug
+
+  catalog-service:
+    environment:
+      <<: *debug-opts
+    ports:
+      - "8085:8080"
+      - "5008:5005"     # Remote debug
+
+  notification-service:
+    ports:
+      - "8084:8080"
+
+  mailpit:
+    ports:
+      - "48025:8025"    # Web UI
+      - "41025:1025"    # SMTP
