@@ -2,6 +2,7 @@ package com.orderplatform.paymentservice.payment.entity;
 
 import com.orderplatform.common.enums.PaymentStatus;
 import com.orderplatform.infra.persistence.UuidV7Entity;
+import com.orderplatform.paymentservice.exception.InvalidPaymentStateException;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotNull;
@@ -61,26 +62,26 @@ public class Payment extends UuidV7Entity {
     }
 
     public void markFailed(String reason){
-        requireStatus(PaymentStatus.PENDING);
+        requireStatus(PaymentStatus.PENDING, PaymentStatus.FAILED);
         this.failureReason = reason;
         this.paymentStatus = PaymentStatus.FAILED;
     }
 
     public void markRefunded(){
-        requireStatus(PaymentStatus.PAID);
+        requireStatus(PaymentStatus.PAID, PaymentStatus.REFUNDED);
         this.paymentStatus = PaymentStatus.REFUNDED;
     }
 
     public void markPaid(String providerTransactionId){
-        requireStatus(PaymentStatus.PENDING);
+        requireStatus(PaymentStatus.PENDING, PaymentStatus.PAID);
         this.paymentStatus = PaymentStatus.PAID;
         this.providerTransactionId = providerTransactionId;
         this.paidAt = Instant.now();
     }
 
-    private void requireStatus(PaymentStatus expected) {
+    private void requireStatus(PaymentStatus expected, PaymentStatus target) {
         if (this.paymentStatus != expected) {
-            throw new IllegalStateException("Beklenen: " + expected + ", mevcut: " + paymentStatus);
+            throw new InvalidPaymentStateException(paymentStatus, expected, target);
         }
     }
 }
