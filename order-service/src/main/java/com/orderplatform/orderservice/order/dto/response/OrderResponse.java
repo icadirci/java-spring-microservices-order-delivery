@@ -14,7 +14,7 @@ public record OrderResponse(
         return new OrderResponse(
                 order.getId(),
                 order.getUserId(),
-                order.getAddress(),
+                order.getShippingAddress(),
                 order.getStatus().name()
                 );
     }

@@ -63,7 +63,7 @@ public class OrderService {
     public OrderStatus updateStatus(UUID orderId, OrderStatus status){
         Order order = orderRepository.findById(orderId)
                 .orElseThrow(OrderNotFoundException::new);
-        order.setStatus(status);
+        order.changeStatus(status);
         Order savedOrder = orderRepository.save(order);
         return status;
 

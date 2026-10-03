@@ -39,7 +39,7 @@ public class OrderController {
                 new CreateOrderResponse(
                         order.getId(),
                         order.getUserId(),
-                        order.getAddress(),
+                        order.getShippingAddress(),
                         order.getStatus().name()
                 )
         );
@@ -57,7 +57,7 @@ public class OrderController {
                 new OrderResponse(
                         order.getId(),
                         order.getUserId(),
-                        order.getAddress(),
+                        order.getShippingAddress(),
                         order.getStatus().name()
                 )
         );
