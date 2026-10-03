@@ -12,6 +12,24 @@ spring:
           enabled: false
           lower-case-service-id: true
 
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins:
+              - http://localhost:5173
+              - http://localhost:3000
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - PATCH
+              - DELETE
+              - OPTIONS
+            allowedHeaders:
+              - Content-Type
+              - Authorization
+            maxAge: 3600
+
       routes:
         - id: user-auth
           uri: lb://user-service
