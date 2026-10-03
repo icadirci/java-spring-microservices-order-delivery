@@ -57,7 +57,7 @@ public class UserController {
         User user = userRepository.findByEmail(authentication.getName())
                 .orElseThrow(UserNotFoundException::new);
 
-        user.setFullName(request.fullName().trim());
+        user.updateProfile(request.fullName().trim(), user.getPhone(),user.getAvatarUrl());
         User updatedUser = userRepository.save(user);
 
         return ApiResponse.ok(new UserMeResponse(

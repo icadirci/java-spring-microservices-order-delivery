@@ -46,7 +46,7 @@ public class UserAddress extends UuidV7Entity {
     private String postalCode;
 
     @Column(name = "is_default", nullable = false)
-    private boolean defaultAddress = false;
+    private boolean isDefault = false;
 
     @CreatedDate
     @Column(name = "created_at", nullable = false, updatable = false)
@@ -77,11 +77,11 @@ public class UserAddress extends UuidV7Entity {
     }
 
     public void markAsDefault() {
-        this.defaultAddress = true;
+        this.isDefault = true;
     }
 
     public void unmarkDefault() {
-        this.defaultAddress = false;
+        this.isDefault = false;
     }
 
     // Sadece User.addAddress() çağırır; ilişkinin iki tarafını birlikte bağlar.

@@ -42,12 +42,8 @@ public class AuthService {
             throw new EmailAlreadyExistsException();
         }
 
-        User u = new User();
-        u.setEmail(email);
-        u.setFullName(req.fullname().trim());
-        u.setPasswordHash(passwordEncoder.encode(req.password()));
-        u.setRole(Role.USER);
-        u.setEnabled(true);
+        User u = User.create(email, passwordEncoder.encode(req.password()), req.fullname().trim());
+
 
         User saved = userRepository.save(u);
 

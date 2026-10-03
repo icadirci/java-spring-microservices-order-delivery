@@ -3,8 +3,9 @@ package com.orderplatform.userservice.user.entity;
 import com.orderplatform.common.security.Role;
 import com.orderplatform.infra.persistence.UuidV7Entity;
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -19,34 +20,30 @@ import java.util.List;
         @Index(name = "ix_users_email", columnList = "email", unique = true)
 })
 @EntityListeners(AuditingEntityListener.class)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class User extends UuidV7Entity {
 
-    @Setter
     @Column(nullable = false, length = 190)
     private String email;
 
-    @Setter
     @Column(nullable = false)
     private String passwordHash;
 
-    @Setter
     @Column(nullable = false, length = 80)
     private String fullName;
 
-    @Setter
+    private String avatarUrl;
+
     @Column(length = 40)
     private String phone;
 
-    @Setter
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
     private Role role = Role.USER;
 
-    @Setter
     @Column(nullable = false)
     private boolean enabled = true;
 
-    @Setter
     @Column(name = "email_verified_at")
     private Instant emailVerifiedAt;
 
@@ -61,12 +58,64 @@ public class User extends UuidV7Entity {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<UserAddress> addresses = new ArrayList<>();
 
+    /**
+     *
+     * @param email
+     * @param passwordHash
+     * @param fullName
+     * @return
+     */
+    public static User create(String email, String passwordHash, String fullName){
+        User u = new User();
+        u.email = email;
+        u.passwordHash = passwordHash;
+        u.fullName = fullName;
+        return u;
+    }
+
+    /**
+     *
+     * @param address
+     */
     public void addAddress(UserAddress address) {
         addresses.add(address);
         address.assignTo(this);
     }
 
+    /**
+     *
+     * @param address
+     */
     public void removeAddress(UserAddress address) {
         addresses.remove(address);
+    }
+
+    /**
+     *
+     * @param fullName
+     * @param phone
+     * @param avatarUrl
+     */
+    public void updateProfile(String fullName, String phone, String avatarUrl){
+        this.fullName = fullName;
+        this.phone = phone;
+        this.avatarUrl = avatarUrl;
+    }
+
+    /**
+     *
+     * @param newHash
+     */
+    public void changePassword(String newHash){
+        this.passwordHash = newHash;
+    }
+
+    /**
+     *
+     */
+    public void verifyEmail(){
+        if (this.emailVerifiedAt == null){
+            this.emailVerifiedAt = Instant.now();
+        }
     }
 }
