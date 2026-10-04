@@ -13,9 +13,6 @@ public abstract class UuidV7Entity {
     @Column(nullable = false, updatable = false)
     private UUID id;
 
-    @Column(name = "deleted_at")
-    private Instant deletedAt;
-
     @PrePersist
     private void generateId() {
         if (id == null) {
