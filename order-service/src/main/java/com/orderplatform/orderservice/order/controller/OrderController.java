@@ -1,6 +1,9 @@
 package com.orderplatform.orderservice.order.controller;
 
 import com.orderplatform.common.dto.ApiResponse;
+import com.orderplatform.common.dto.PageResponse;
+import com.orderplatform.orderservice.order.dto.request.PlaceOrderRequest;
+import com.orderplatform.orderservice.order.dto.response.OrderDetailResponse;
 import com.orderplatform.orderservice.order.dto.request.CreateOrderRequest;
 import com.orderplatform.orderservice.order.dto.request.UpdateOrderStatusRequest;
 import com.orderplatform.orderservice.order.dto.response.CreateOrderResponse;
@@ -74,6 +77,28 @@ public class OrderController {
     @PreAuthorize("hasRole('ADMIN')")
     public ApiResponse<OrderStatus> updateStatus(@PathVariable UUID orderId, @RequestBody @Valid UpdateOrderStatusRequest request) {
         return ApiResponse.ok(orderService.updateStatus(orderId, request.status()));
+    }
+
+    // TODO: Implement the endpoints below (price is calculated by the backend).
+    @PostMapping("/create")
+    @ResponseStatus(HttpStatus.NOT_IMPLEMENTED)
+    public ApiResponse<OrderDetailResponse> place(
+            @RequestBody @Valid PlaceOrderRequest request,
+            Authentication authentication
+    ) {
+        return null;
+    }
+
+    @GetMapping("/me")
+    @ResponseStatus(HttpStatus.NOT_IMPLEMENTED)
+    public ApiResponse<PageResponse<OrderDetailResponse>> myOrders(
+            @RequestParam(required = false) String q,
+            @RequestParam(required = false) OrderStatus status,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            Authentication authentication
+    ) {
+        return null;
     }
 
 }
