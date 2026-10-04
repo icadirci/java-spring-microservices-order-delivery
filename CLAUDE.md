@@ -41,7 +41,7 @@ Modules: `gateway-service`, `discovery-service` (Eureka), `user-service`, `order
 JWTs are issued by user-service (`auth/AuthService`, `security/JwtService`) and **validated only at the gateway**:
 
 1. `gateway-service/.../security/JwtAuthGlobalFilter` (a `GlobalFilter` at highest precedence) first strips every client-supplied header starting with `X-Auth-`, then — deny by default, except the `PUBLIC_ENDPOINTS` list (login/register) — validates the Bearer token and sets `X-Auth-UserId`, `X-Auth-Email`, `X-Auth-Role` from the claims.
-2. Downstream services do **not** parse JWTs. Each has its own `security/GatewayHeaderAuthFilter` that builds the Spring `Authentication` from those headers (principal = user id string, authority = `ROLE_<role>`), and a stateless `SecurityConfig` requiring authentication except `/actuator/**`.
+2. Downstream services do **not** parse JWTs. Each has its own `security/GatewayHeaderAuthFilter` that builds the Spring `Authentication` from those headers (principal = user email string, authority = `ROLE_<role>`), and a stateless `SecurityConfig` requiring authentication except `/actuator/**`.
 3. Header names live in `common-libs` `com.orderplatform.common.security.AuthHeaders`; the `X-Auth-` prefix contract is what makes header stripping safe. Adding a new public route means updating `PUBLIC_ENDPOINTS` in the gateway filter.
 
 The gateway's own Spring Security config only exposes `/actuator/health`; other gateway actuator endpoints are denied. `APP_JWT_SECRET` (≥32 chars) must match between gateway and user-service.
