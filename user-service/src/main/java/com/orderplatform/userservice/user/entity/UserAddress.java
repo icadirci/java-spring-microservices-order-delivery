@@ -1,6 +1,7 @@
 package com.orderplatform.userservice.user.entity;
 
-import com.orderplatform.infra.persistence.UuidV7Entity;
+import com.orderplatform.infra.persistence.SoftDeletableEntity;
+import com.orderplatform.userservice.user.dto.request.AddressRequest;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -18,7 +19,7 @@ import java.time.Instant;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @EntityListeners(AuditingEntityListener.class)
-public class UserAddress extends UuidV7Entity {
+public class UserAddress extends SoftDeletableEntity {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id", nullable = false)
@@ -58,15 +59,15 @@ public class UserAddress extends UuidV7Entity {
 
     public static UserAddress create(String title, String recipientName, String phone,
                                      String city, String district, String addressLine,
-                                     String postalCode) {
+                                     String postalCode, boolean isDefault) {
         UserAddress address = new UserAddress();
-        address.update(title, recipientName, phone, city, district, addressLine, postalCode);
+        address.update(title, recipientName, phone, city, district, addressLine, postalCode, isDefault);
         return address;
     }
 
     public void update(String title, String recipientName, String phone,
                        String city, String district, String addressLine,
-                       String postalCode) {
+                       String postalCode,  boolean isDefault) {
         this.title = title;
         this.recipientName = recipientName;
         this.phone = phone;
@@ -74,6 +75,18 @@ public class UserAddress extends UuidV7Entity {
         this.district = district;
         this.addressLine = addressLine;
         this.postalCode = postalCode;
+        this.isDefault = isDefault;
+    }
+
+    public void updateFromRequest(AddressRequest request){
+        this.title = request.title();
+        this.recipientName = request.recipientName();
+        this.phone = request.phone();
+        this.city = request.city();
+        this.district = request.district();
+        this.addressLine = request.addressLine();
+        this.postalCode = request.postalCode();
+        this.isDefault = request.isDefault();
     }
 
     public void markAsDefault() {

@@ -3,7 +3,7 @@ package com.orderplatform.userservice.grpc;
 import com.orderplatform.common.grpc.UserRequest;
 import com.orderplatform.common.grpc.UserResponse;
 import com.orderplatform.common.grpc.UserServiceGrpcNavGrpc.UserServiceGrpcNavImplBase;
-import com.orderplatform.userservice.user.UserRepository;
+import com.orderplatform.userservice.user.repository.UserRepository;
 import io.grpc.Status;
 import io.grpc.stub.StreamObserver;
 import lombok.RequiredArgsConstructor;

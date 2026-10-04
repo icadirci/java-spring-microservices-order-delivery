@@ -1,9 +1,8 @@
 package com.orderplatform.userservice.integration.auth;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.orderplatform.userservice.auth.dto.LoginRequest;
-import com.orderplatform.userservice.auth.dto.RegisterRequest;
-import com.orderplatform.userservice.user.UserRepository;
+import com.orderplatform.userservice.auth.dto.request.RegisterRequest;
+import com.orderplatform.userservice.user.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

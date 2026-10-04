@@ -1,4 +1,4 @@
-package com.orderplatform.userservice.user;
+package com.orderplatform.userservice.user.repository;
 
 import com.orderplatform.userservice.user.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;

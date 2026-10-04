@@ -1,16 +1,15 @@
-package com.orderplatform.userservice.auth;
+package com.orderplatform.userservice.auth.service;
 
 import com.orderplatform.common.event.UserRegisteredEvent;
-import com.orderplatform.common.security.Role;
-import com.orderplatform.userservice.auth.dto.AuthResponse;
-import com.orderplatform.userservice.auth.dto.LoginRequest;
-import com.orderplatform.userservice.auth.dto.RegisterRequest;
+import com.orderplatform.userservice.auth.dto.response.AuthResponse;
+import com.orderplatform.userservice.auth.dto.request.LoginRequest;
+import com.orderplatform.userservice.auth.dto.request.RegisterRequest;
 import com.orderplatform.userservice.exception.EmailAlreadyExistsException;
 import com.orderplatform.userservice.exception.InvalidCredentialsException;
 import com.orderplatform.userservice.exception.UserDisabledException;
 import com.orderplatform.userservice.security.JwtService;
 import com.orderplatform.userservice.user.entity.User;
-import com.orderplatform.userservice.user.UserRepository;
+import com.orderplatform.userservice.user.repository.UserRepository;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

@@ -1,4 +1,4 @@
-package com.orderplatform.userservice.auth.dto;
+package com.orderplatform.userservice.auth.dto.response;
 
 import java.util.UUID;
 
